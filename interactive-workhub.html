@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WorkHub Wireframes: Interactive Prototype</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .step-selector {
+            background-color: #34495e;
+            border: 1px solid #4a5f7a;
+            border-radius: 4px;
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            min-width: 200px;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 70px);
+            padding: 40px 20px;
+        }
+
+        .welcome-container {
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .home-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #4a90e2;
+            border-radius: 8px;
+            margin: 0 auto 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .home-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        .welcome-title {
+            font-size: 32px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 16px;
+        }
+
+        .welcome-subtitle {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 48px;
+            line-height: 1.5;
+        }
+
+        .steps-list {
+            list-style: none;
+            margin-bottom: 48px;
+            text-align: left;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 24px;
+            padding: 16px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .step-item:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #4a90e2;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            margin-right: 16px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 4px;
+        }
+
+        .step-description {
+            font-size: 14px;
+            color: #7f8c8d;
+            line-height: 1.4;
+        }
+
+        .get-started-btn {
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 16px 48px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .get-started-btn:hover:not(:disabled) {
+            background-color: #357abd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+        }
+
+        .get-started-btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .form-label.required::after {
+            content: " *";
+            color: #e74c3c;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #4a90e2;
+        }
+
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .form-hint {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 4px;
+        }
+
+        .checkbox-group {
+            margin-bottom: 16px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            cursor: pointer;
+        }
+
+        .checkbox-item input[type="checkbox"],
+        .checkbox-item input[type="radio"] {
+            margin-right: 12px;
+            margin-top: 2px;
+            width: 16px;
+            height: 16px;
+        }
+
+        .checkbox-label {
+            flex: 1;
+        }
+
+        .checkbox-title {
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 2px;
+        }
+
+        .checkbox-description {
+            font-size: 13px;
+            color: #7f8c8d;
+        }
+
+        .info-box {
+            background-color: #e8f4fd;
+            border: 1px solid #bee5eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        .info-box.warning {
+            background-color: #fff3cd;
+            border-color: #ffeaa7;
+        }
+
+        .info-box-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+
+        .team-member-list {
+            background-color: white;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        .team-member-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .team-member-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .member-info {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .member-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: #4a90e2;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+
+        .member-details {
+            flex: 1;
+        }
+
+        .member-email {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .member-role {
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+
+        .remove-btn {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .remove-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .sections-list {
+            margin: 24px 0;
+        }
+
+        .section-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background-color: white;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .section-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #4a90e2;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+
+        .section-name {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .section-badge {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #d4edda;
+            border-radius: 50%;
+            margin: 0 auto 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            fill: #27ae60;
+        }
+
+        .success-list {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 32px;
+        }
+
+        .success-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 12px;
+            background-color: #d4edda;
+            border-radius: 8px;
+        }
+
+        .success-item svg {
+            width: 20px;
+            height: 20px;
+            fill: #27ae60;
+            margin-right: 12px;
+        }
+
+        .nav-link {
+            background: none;
+            border: none;
+            color: #4a90e2;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            padding: 8px 0;
+            margin-bottom: 16px;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #7f8c8d;
+            padding: 24px;
+        }
+
+        .guest-list {
+            margin-top: 16px;
+        }
+
+        .guest-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background-color: #f8f9fa;
+            border: 1px solid #e1e8ed;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .guest-email {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .guest-access {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1 id="headerTitle">WorkHub Wireframes: Welcome Screen</h1>
+        <select class="step-selector" id="stepSelector" onchange="changeStep(this.value)">
+            <option value="welcome">1. Welcome</option>
+            <option value="create-project">2. Create Project</option>
+            <option value="add-members">3. Add Members</option>
+            <option value="organize">4. Organize Work</option>
+            <option value="external">5. External Sharing</option>
+            <option value="notifications">6. Notifications</option>
+            <option value="complete">7. Complete</option>
+        </select>
+    </header>
+
+    <main class="main-content">
+        <!-- Welcome Screen -->
+        <div class="screen active" id="welcome-screen">
+            <div class="welcome-container">
+                <div class="home-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                    </svg>
+                </div>
+
+                <h1 class="welcome-title">Welcome to WorkHub</h1>
+                <p class="welcome-subtitle">Let's get your first project set up in just a few steps</p>
+
+                <ul class="steps-list">
+                    <li class="step-item" onclick="goToStep('create-project')">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Create your first project</div>
+                            <div class="step-description">Set up a workspace for your team</div>
+                        </div>
+                    </li>
+
+                    <li class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Add team members</div>
+                            <div class="step-description">Invite people to collaborate</div>
+                        </div>
+                    </li>
+
+                    <li class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Organize your work</div>
+                            <div class="step-description">Structure your project into phases</div>
+                        </div>
+                    </li>
+                </ul>
+
+                <button class="get-started-btn" onclick="goToStep('create-project')">Get Started</button>
+            </div>
+        </div>
+
+        <!-- Create Project Screen -->
+        <div class="screen" id="create-project-screen">
+            <div class="welcome-container">
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom: 16px;">
+                    <button class="nav-link" onclick="goBack()">← Back</button>
+                    <div class="page-progress">
+                        <div class="page-progress-bar">
+                            <div class="page-progress-fill" style="width: 28%;"></div>
+                        </div>
+                        <div class="page-progress-text">Step 2 of 7</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 32px;">
+                    <h1 style="font-size: 24px; color: #2c3e50; margin-bottom: 16px;">Create Your First Project</h1>
+                    <p class="welcome-subtitle">Projects help you organize work and collaborate with your team</p>
+
+                    <form style="margin-top: 32px; text-align: left;" onsubmit="return false;">
+                        <div class="form-group">
+                            <label class="form-label required">Project Name</label>
+                            <input type="text" class="form-input" id="projectName" placeholder="e.g., Q4 Campaign Launch" oninput="validateProject()">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Description (Optional)</label>
+                            <textarea class="form-input form-textarea" id="projectDesc" placeholder="What's this project about?"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Workspace</label>
+                            <select class="form-select" id="projectWorkspace">
+                                <option>My Workspace</option>
+                                <option>Marketing</option>
+                                <option>Sales</option>
+                            </select>
+                            <div class="form-hint">Workspaces help organize multiple projects</div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; margin-top: 32px;">
+                            <button type="button" class="get-started-btn" style="background: #6c757d; flex: 1;" onclick="goBack()">Cancel</button>
+                            <button type="button" class="get-started-btn" style="flex: 1;" id="createProjectBtn" onclick="createProject()" disabled>Create Project</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Team Members Screen -->
+        <div class="screen" id="add-members-screen">
+            <div class="welcome-container">
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom: 16px;">
+                    <button class="nav-link" onclick="goBack()">← Back</button>
+                    <div class="page-progress">
+                        <div class="page-progress-bar">
+                            <div class="page-progress-fill" style="width: 42%;"></div>
+                        </div>
+                        <div class="page-progress-text">Step 3 of 7</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 32px;">
+                    <h1 style="font-size: 24px; color: #2c3e50; margin-bottom: 16px;">Add Team Members</h1>
+                    <p class="welcome-subtitle">Invite people to collaborate on: <strong id="projectNameDisplay"></strong></p>
+
+                    <div style="margin-top: 32px; text-align: left;">
+                        <div class="form-group">
+                            <label class="form-label">Add by Email</label>
+                            <div style="display: flex; gap: 12px;">
+                                <input type="email" class="form-input" id="memberEmail" placeholder="colleague@company.com" style="flex: 1;">
+                                <select class="form-select" id="memberRole" style="width: 140px;">
+                                    <option value="Editor">Editor</option>
+                                    <option value="Viewer">Viewer</option>
+                                    <option value="Admin">Admin</option>
+                                </select>
+                                <button class="get-started-btn" style="padding: 12px 24px; width: auto;" onclick="addMember()">Add</button>
+                            </div>
+                            <div class="form-hint">Separate multiple emails with commas</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Team Members (<span id="memberCount">0</span>)</label>
+                            <div class="team-member-list" id="teamMemberList">
+                                <div class="empty-state">No team members added yet</div>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <div class="info-box-title">💡 You can skip this step</div>
+                            <div style="color: #6c5ce7; font-size: 13px; margin-bottom: 8px;">Team members can be added anytime after project creation</div>
+                            <div class="info-box-title" style="margin-top: 12px;">Permission Levels</div>
+                            <div style="color: #6c5ce7; font-size: 13px; margin-bottom: 4px;"><strong>Editor:</strong> Can create and edit tasks</div>
+                            <div style="color: #6c5ce7; font-size: 13px; margin-bottom: 4px;"><strong>Viewer:</strong> Can view but not edit</div>
+                            <div style="color: #6c5ce7; font-size: 13px;"><strong>Admin:</strong> Full project control</div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; margin-top: 32px;">
+                            <button type="button" class="get-started-btn" style="background: #6c757d; flex: 1;" onclick="goBack()">Back</button>
+                            <button type="button" class="get-started-btn" style="flex: 1;" onclick="goToStep('organize')">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Organize Work Screen -->
+        <div class="screen" id="organize-screen">
+            <div class="welcome-container">
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom: 16px;">
+                    <button class="nav-link" onclick="goBack()">← Back</button>
+                    <div class="page-progress">
+                        <div class="page-progress-bar">
+                            <div class="page-progress-fill" style="width: 57%;"></div>
+                        </div>
+                        <div class="page-progress-text">Step 4 of 7</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 32px;">
+                    <h1 style="font-size: 24px; color: #2c3e50; margin-bottom: 16px;">Organize Your Work</h1>
+                    <p class="welcome-subtitle">Break down your project into sections or phases</p>
+
+                    <div style="margin-top: 32px; text-align: left;">
+                        <div class="form-group">
+                            <label class="form-label">Create Sections</label>
+                            <div style="display: flex; gap: 12px;">
+                                <input type="text" class="form-input" id="sectionName" placeholder="e.g., Planning, Execution, Analysis" style="flex: 1;">
+                                <button class="get-started-btn" style="padding: 12px 24px; width: auto;" onclick="addSection()">Add Section</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Project Sections</label>
+                            <div class="sections-list" id="sectionsList">
+                                <div class="section-item">
+                                    <div class="section-dot"></div>
+                                    <div class="section-name">Getting Started</div>
+                                    <div class="section-badge">Default</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="info-box warning">
+                            <div style="display: flex; align-items: center;">
+                                <span style="font-weight: 600; color: #2c3e50;">💡 Optional Step</span>
+                            </div>
+                            <div style="color: #8d6e63; margin-top: 4px; margin-bottom: 8px;">You can add, remove, or reorganize sections anytime after project creation</div>
+                            <div style="display: flex; align-items: center; margin-top: 8px;">
+                                <span style="font-weight: 600; color: #2c3e50;">Pro Tip</span>
+                            </div>
+                            <div style="color: #8d6e63; margin-top: 4px;">Sections can be reorganized by dragging them later</div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; margin-top: 32px;">
+                            <button type="button" class="get-started-btn" style="background: #6c757d; flex: 1;" onclick="goBack()">Back</button>
+                            <button type="button" class="get-started-btn" style="flex: 1;" onclick="goToStep('external')">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- External Sharing Screen -->
+        <div class="screen" id="external-screen">
+            <div class="welcome-container">
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom: 16px;">
+                    <button class="nav-link" onclick="goBack()">← Back</button>
+                    <div class="page-progress">
+                        <div class="page-progress-bar">
+                            <div class="page-progress-fill" style="width: 71%;"></div>
+                        </div>
+                        <div class="page-progress-text">Step 5 of 7</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 32px;">
+                    <h1 style="font-size: 24px; color: #2c3e50; margin-bottom: 16px;">Share with External Users</h1>
+                    <p class="welcome-subtitle">Give clients or partners view-only access to your project</p>
+
+                    <div style="margin-top: 32px; text-align: left;">
+                        <div class="form-group">
+                            <label class="form-label">Invite External User (Guest)</label>
+                            <div style="display: flex; gap: 12px;">
+                                <input type="email" class="form-input" id="guestEmail" placeholder="client@external.com" style="flex: 1;">
+                                <button class="get-started-btn" style="padding: 12px 24px; width: auto;" onclick="addGuest()">Invite</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Guest Access Level</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item">
+                                    <input type="radio" name="access" value="view" checked id="accessView">
+                                    <div class="checkbox-label">
+                                        <div class="checkbox-title">View Only</div>
+                                        <div class="checkbox-description">Can see project and tasks but cannot edit</div>
+                                    </div>
+                                </label>
+                                <label class="checkbox-item">
+                                    <input type="radio" name="access" value="comment" id="accessComment">
+                                    <div class="checkbox-label">
+                                        <div class="checkbox-title">Comment Only</div>
+                                        <div class="checkbox-description">Can view and leave comments but cannot edit</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">External Guests (<span id="guestCount">0</span>)</label>
+                            <div class="team-member-list guest-list" id="guestList">
+                                <div class="empty-state">No guests added yet</div>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <div class="info-box-title">🔒 Guest Limitations</div>
+                            <div style="color: #6c5ce7; font-size: 13px; margin-bottom: 4px;">• Cannot see other projects in your workspace</div>
+                            <div style="color: #6c5ce7; font-size: 13px; margin-bottom: 4px;">• Cannot invite other users</div>
+                            <div style="color: #6c5ce7; font-size: 13px;">• Access can be revoked anytime</div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; margin-top: 32px;">
+                            <button type="button" class="get-started-btn" style="background: #6c757d; flex: 1;" onclick="goBack()">Back</button>
+                            <button type="button" class="get-started-btn" style="flex: 1;" onclick="goToStep('notifications')">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Screen -->
+        <div class="screen" id="notifications-screen">
+            <div class="welcome-container">
+                <div style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin-bottom: 24px;">
+                    <button class="nav-link" onclick="goBack()">← Back</button>
+                    <div class="page-progress">
+                        <div class="page-progress-bar">
+                            <div class="page-progress-fill" style="width: 85%;"></div>
+                        </div>
+                        <div class="page-progress-text">Step 6 of 7</div>
+                    </div>
+                </div>
+                
+                <h1 style="font-size: 24px; color: #2c3e50; margin-bottom: 16px;">Notification Preferences</h1>
+                <p class="welcome-subtitle">Choose how you want to stay updated</p>
+
+                <div style="margin-top: 32px; text-align: left;">
+                    <div class="form-group">
+                        <label class="form-label">Email Notifications</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="notifMention">
+                                <div class="checkbox-label">
+                                    <div class="checkbox-title">When someone mentions me</div>
+                                    <div class="checkbox-description">Get notified when tagged with @yourname</div>
+                                </div>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" id="notifAssigned">
+                                <div class="checkbox-label">
+                                    <div class="checkbox-title">When assigned a task</div>
+                                    <div class="checkbox-description">Get notified when someone assigns you work</div>
+                                </div>
+                            </label>
+                            <label class="checkbox-item">
+                                <input type="checkbox" checked id="notifDaily">
+                                <div class="checkbox-label">
+                                    <div class="checkbox-title">Daily summary</div>
+                                    <div class="checkbox-description">Get a digest of activity across all projects</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 16px; margin-top: 32px;">
+                        <button type="button" class="get-started-btn" style="background: #6c757d; flex: 1;" onclick="goBack()">Back</button>
+                        <button type="button" class="get-started-btn" style="flex: 1;" onclick="completeSetup()">Save Preferences</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Setup Complete Screen -->
+        <div class="screen" id="complete-screen">
+            <div class="welcome-container">
+                <div class="success-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+
+                <h1 class="welcome-title">You're All Set!</h1>
+                <p class="welcome-subtitle">Your project <strong id="finalProjectName"></strong> is ready to go.</p>
+
+                <ul class="success-list">
+                    <li class="success-item">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        Project created
+                    </li>
+                    <li class="success-item">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        <span id="finalMemberCount">0</span> team members added
+                    </li>
+                    <li class="success-item">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                        <span id="finalSectionCount">1</span> sections organized
+                    </li>
+                </ul>
+
+                <button class="get-started-btn" onclick="resetPrototype()" style="margin-bottom: 16px;">Start Over</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Data storage
+        const projectData = {
+            name: '',
+            description: '',
+            workspace: 'My Workspace',
+            members: [],
+            sections: ['Getting Started'],
+            guests: [],
+            notifications: {
+                mention: false,
+                assigned: false,
+                daily: true
+            }
+        };
+
+        let currentScreen = 'welcome';
+
+        const screens = {
+            'welcome': 'WorkHub Wireframes: Welcome Screen',
+            'create-project': 'WorkHub Wireframes: Create Project',
+            'add-members': 'WorkHub Wireframes: Add Team Members',
+            'organize': 'WorkHub Wireframes: Organize Work',
+            'external': 'WorkHub Wireframes: Share with External Users',
+            'notifications': 'WorkHub Wireframes: Notification Settings',
+            'complete': 'WorkHub Wireframes: Setup Complete'
+        };
+
+        function goToStep(stepId) {
+            currentScreen = stepId;
+            
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            document.getElementById(stepId + '-screen').classList.add('active');
+            document.getElementById('headerTitle').textContent = screens[stepId];
+            document.getElementById('stepSelector').value = stepId;
+            
+            // Update dynamic content when entering screens
+            if (stepId === 'add-members') {
+                updateProjectNameDisplay();
+            }
+        }
+
+        function goBack() {
+            const backSteps = {
+                'create-project': 'welcome',
+                'add-members': 'create-project',
+                'organize': 'add-members',
+                'external': 'organize',
+                'notifications': 'external',
+                'complete': 'notifications'
+            };
+            
+            if (backSteps[currentScreen]) {
+                goToStep(backSteps[currentScreen]);
+            }
+        }
+
+        function changeStep(stepValue) {
+            goToStep(stepValue);
+        }
+
+        function validateProject() {
+            const projectName = document.getElementById('projectName').value.trim();
+            const createBtn = document.getElementById('createProjectBtn');
+            createBtn.disabled = projectName.length === 0;
+        }
+
+        function createProject() {
+            projectData.name = document.getElementById('projectName').value.trim();
+            projectData.description = document.getElementById('projectDesc').value.trim();
+            projectData.workspace = document.getElementById('projectWorkspace').value;
+            goToStep('add-members');
+        }
+
+        function updateProjectNameDisplay() {
+            document.getElementById('projectNameDisplay').textContent = projectData.name || 'your project';
+        }
+
+        function addMember() {
+            const email = document.getElementById('memberEmail').value.trim();
+            const role = document.getElementById('memberRole').value;
+            
+            if (email && email.includes('@')) {
+                if (!projectData.members.find(m => m.email === email)) {
+                    projectData.members.push({ email, role });
+                    document.getElementById('memberEmail').value = '';
+                    renderMembers();
+                }
+            }
+        }
+
+        function removeMember(email) {
+            projectData.members = projectData.members.filter(m => m.email !== email);
+            renderMembers();
+        }
+
+        function renderMembers() {
+            const container = document.getElementById('teamMemberList');
+            const count = document.getElementById('memberCount');
+            count.textContent = projectData.members.length;
+            
+            if (projectData.members.length === 0) {
+                container.innerHTML = '<div class="empty-state">No team members added yet</div>';
+            } else {
+                container.innerHTML = projectData.members.map(member => `
+                    <div class="team-member-item">
+                        <div class="member-info">
+                            <div class="member-avatar">${member.email.charAt(0).toUpperCase()}</div>
+                            <div class="member-details">
+                                <div class="member-email">${member.email}</div>
+                                <div class="member-role">${member.role}</div>
+                            </div>
+                        </div>
+                        <button class="remove-btn" onclick="removeMember('${member.email}')">Remove</button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function addSection() {
+            const sectionName = document.getElementById('sectionName').value.trim();
+            if (sectionName && !projectData.sections.includes(sectionName)) {
+                projectData.sections.push(sectionName);
+                document.getElementById('sectionName').value = '';
+                renderSections();
+            }
+        }
+
+        function removeSection(name) {
+            if (name !== 'Getting Started') {
+                projectData.sections = projectData.sections.filter(s => s !== name);
+                renderSections();
+            }
+        }
+
+        function renderSections() {
+            const container = document.getElementById('sectionsList');
+            container.innerHTML = projectData.sections.map((section, index) => `
+                <div class="section-item">
+                    <div class="section-dot"></div>
+                    <div class="section-name">${section}</div>
+                    ${index === 0 ? '<div class="section-badge">Default</div>' : ''}
+                    ${index > 0 ? `<button class="remove-btn" onclick="removeSection('${section}')">Remove</button>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function addGuest() {
+            const email = document.getElementById('guestEmail').value.trim();
+            const accessType = document.getElementById('accessView').checked ? 'View Only' : 'Comment Only';
+            
+            if (email && email.includes('@')) {
+                if (!projectData.guests.find(g => g.email === email)) {
+                    projectData.guests.push({ email, access: accessType });
+                    document.getElementById('guestEmail').value = '';
+                    renderGuests();
+                }
+            }
+        }
+
+        function removeGuest(email) {
+            projectData.guests = projectData.guests.filter(g => g.email !== email);
+            renderGuests();
+        }
+
+        function renderGuests() {
+            const container = document.getElementById('guestList');
+            const count = document.getElementById('guestCount');
+            count.textContent = projectData.guests.length;
+            
+            if (projectData.guests.length === 0) {
+                container.innerHTML = '<div class="empty-state">No guests added yet</div>';
+            } else {
+                container.innerHTML = projectData.guests.map(guest => `
+                    <div class="team-member-item">
+                        <div class="member-info">
+                            <div class="member-avatar">${guest.email.charAt(0).toUpperCase()}</div>
+                            <div class="member-details">
+                                <div class="member-email">${guest.email}</div>
+                                <div class="member-role">${guest.access}</div>
+                            </div>
+                        </div>
+                        <button class="remove-btn" onclick="removeGuest('${guest.email}')">Remove</button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function completeSetup() {
+            projectData.notifications.mention = document.getElementById('notifMention').checked;
+            projectData.notifications.assigned = document.getElementById('notifAssigned').checked;
+            projectData.notifications.daily = document.getElementById('notifDaily').checked;
+            
+            document.getElementById('finalProjectName').textContent = projectData.name;
+            document.getElementById('finalMemberCount').textContent = projectData.members.length;
+            document.getElementById('finalSectionCount').textContent = projectData.sections.length;
+            
+            goToStep('complete');
+        }
+
+        function resetPrototype() {
+            projectData.name = '';
+            projectData.description = '';
+            projectData.members = [];
+            projectData.sections = ['Getting Started'];
+            projectData.guests = [];
+            
+            document.getElementById('projectName').value = '';
+            document.getElementById('projectDesc').value = '';
+            document.getElementById('memberEmail').value = '';
+            document.getElementById('sectionName').value = '';
+            document.getElementById('guestEmail').value = '';
+            
+            renderMembers();
+            renderSections();
+            renderGuests();
+            
+            goToStep('welcome');
+        }
+
+        // Initialize
+        renderMembers();
+        renderSections();
+        renderGuests();
+    </script>
+</body>
+</html>
